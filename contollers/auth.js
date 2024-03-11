@@ -40,10 +40,12 @@ const login = async (req, res) => {
             expiresIn:"1h",
         });
 
-        res.cookie("token",token,{
-            httpOnly:true,
-            expiresIn:new Date(Date.now()+ 1000*60*60),
+        const expirationDate = new Date(Date.now() + 1000 * 60 * 60); // Set expiration to 1 hour from now
+        res.cookie("token", token, {
+            httpOnly: true,
+            expires: expirationDate, // Set the expiration date
         });
+        
 
         return res.status(200).json({ success: true, message: "Login successful.",user });
 
